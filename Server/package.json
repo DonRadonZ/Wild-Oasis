@@ -1,0 +1,15 @@
+{
+  "name": "wild-oasis",
+  "version": "1.0.0",
+  "description": "Backend for Wild Oasis",
+  "main": "index.js",
+  "repository": "https://github.com/DonRadonZ/Wild-Oasis.git",
+  "author": "Supachai Sinkaseam",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.12.11",
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
+  }
+}
