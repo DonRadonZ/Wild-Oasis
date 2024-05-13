@@ -1,6 +1,6 @@
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/FormRow';
-import Input from '../../ui/Input';
+import Input from '../../ui/Input/Input';
 
 function UpdateSettingsForm() {
   return (
