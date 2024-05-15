@@ -12,13 +12,14 @@ import Login from "./page/Login";
 import PageNotFound from "./page/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout/AppLayout";
+import DarkModeProvider from "./context/DarkModeContext";
 
 
 
 const queryCilent = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      staleTime: 0,
     }
   }
 });
@@ -26,7 +27,7 @@ const queryCilent = new QueryClient({
 
 export default function App() {
   return (
-    
+    <DarkModeProvider>
     <QueryClientProvider client={queryCilent}>
       <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
@@ -47,6 +48,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
       </QueryClientProvider>
-      
+      </DarkModeProvider>
   )
 }
