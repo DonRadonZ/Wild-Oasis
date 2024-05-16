@@ -60,7 +60,7 @@ export async function createEditCabin(newCabin, id) {
     return data;
 }
 
-export async function deleteCabins(id){
+export async function deleteCabin(id){
     const {data, error} = await supabase
       .from("cabins")
       .delete()
