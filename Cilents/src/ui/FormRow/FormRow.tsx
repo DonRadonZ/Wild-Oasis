@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 const StyledFormRow = styled.div`
@@ -36,7 +37,13 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-export default function FormRow({label, error, children}) {
+interface FormRowProps {
+  label?: string;
+  error?: string;
+  children: ReactNode;
+}
+
+export default function FormRow({label, error, children}: FormRowProps) {
   return (
     <StyledFormRow>
         {label && <Label htmlFor={children.props.id}>{label}</Label>}

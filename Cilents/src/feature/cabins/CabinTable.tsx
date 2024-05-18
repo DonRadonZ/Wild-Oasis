@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { getCabins } from "../../services/apiCabins";
+
+import { useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner/Spinner";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabin";
+
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -32,8 +34,17 @@ const TableHeader = styled.header`
 
 export default function CabinTable() {
   const {isLoading, cabins} = useCabins();
+  const [searchParams] = useSearchParams();
 
   if(isLoading) return <Spinner/>;
+
+  const filterValue = searchParams.get("discount") || "all";
+
+  let filteredCabins;
+  if(filterValue === "all") filteredCabins = cabins;
+  if (filterValue === "no-discount") filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
+
+  if (filterValue === "with-discount") filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
   return (
     <Table role="table">
@@ -45,6 +56,7 @@ export default function CabinTable() {
         <div>Discount</div>
         <div></div>
       </TableHeader>
+      data={filteredCabins}
       {cabins.map((cabin)=> {<CabinRow cabin={cabin} key={cabin.id} />})}
     </Table>
   )
