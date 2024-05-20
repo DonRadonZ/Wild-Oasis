@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 
-import Tag from "../../ui/Tag";
+import Tag from "../../ui/Tag/Tag";
 import Table from "../../ui/Table";
 
-import { formatCurrency } from "../../utils/helpers";
-import { formatDistanceFromNow } from "../../utils/helpers";
+import { formatCurrency, formatDistanceFromNow } from '../../utils/helper';
+
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -48,6 +48,8 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }) {
+  
+
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
