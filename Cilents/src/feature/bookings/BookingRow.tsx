@@ -6,8 +6,12 @@ import Table from "../../ui/Table/Table";
 
 import { formatCurrency, formatDistanceFromNow } from '../../utils/helper';
 import Menus from "../../ui/Menus/Menus";
-import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
+import Modal from "../../ui/Modal/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete/ConfirmDelete";
+import { useDeleteBooking } from "./useDeleteBooking";
 
 
 const Cabin = styled.div`
@@ -52,6 +56,8 @@ function BookingRow({
   },
 }) {
   const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckout();
+  const {deleteBooking, isDeleting } = useDeleteBooking();
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -86,6 +92,7 @@ function BookingRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
+      <Modal>
       <Menus.Menu>
         <Menus.Toggle id={bookingId} />
         <Menus.List id={bookingId}>
@@ -101,8 +108,31 @@ function BookingRow({
             Check in
           </Menus.Button>
         )}
-        </Menus.List>
-      </Menus.Menu>
+
+            {/*  */}
+
+        {status === "checked-in" && (
+          <Menus.Button 
+          icon={<HiArrowUpOnSquare/>}
+          onClick={() => {checkout(bookingId)}} 
+          disabled={isCheckingOut}
+          >
+            Check out
+          </Menus.Button>
+        )}
+        <Modal.Open opens='delete'>
+          <Menus.Button icon={<HiTrash/>}>Delete booking</Menus.Button>
+        </Modal.Open>
+          </Menus.List>
+        </Menus.Menu>
+        <Modal.Window name="delete">
+          <ConfirmDelete 
+          resourceName="booking" 
+          onConfirm={() => {deleteBooking(bookingId)}}
+          disabled={isDeleting}
+          />
+        </Modal.Window>
+      </Modal>
     </Table.Row>
   );
 }
