@@ -12,6 +12,11 @@ import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
+import { HiArrowUpOnSquare, HiTrash } from "react-icons/hi2";
+import { useCheckout } from "../check-in-out/useCheckout";
+import Modal from "../../ui/Modal/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete/ConfirmDelete";
+import { useDeleteBooking } from './useDeleteBooking';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -21,6 +26,9 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const {booking, isLoading} = useBooking();
+  const {checkout, isCheckingOut} = useCheckout();
+  const {isDeleting, deleteBooking} = useDeleteBooking();
+
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
@@ -33,6 +41,8 @@ function BookingDetail() {
     "checked-in": "green",
     "checked-out": "silver",
   };
+
+
 
   return (
     <>
@@ -47,12 +57,48 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
+      {/* {status==="unconfirmed" && (
+          <Button
+          onClick={navigate(`/checkin`)}
+          >
+            Delete Booking
+          </Button>
+      )} */}
+      <Modal>
+        <Modal.Open opens="delete">
+          <Button variation="danger">Delete Booking</Button>
+        </Modal.Open>
+
+      <Modal.Window name="delete">
+          <ConfirmDelete 
+          resourceName="booking" 
+          onConfirm={() => {deleteBooking(bookingId, {
+            onSettled: () => navigate(-1)
+          }
+        )
+      }
+    }
+          disabled={isDeleting}
+          />
+        </Modal.Window>
+      </Modal>
+
       {status === "unconfirmed" && (
           <Button 
           
           onClick={navigate(`/checkin/${bookingId}`)}
           >
             Check in
+          </Button>
+        )}
+
+        {status === "checked-in" && (
+          <Button 
+          icon={<HiArrowUpOnSquare/>}
+          onClick={() => {checkout(bookingId)}} 
+          disabled={isCheckingOut}
+          >
+            Check out
           </Button>
         )}
         <Button variation="secondary" onClick={moveBack}>
