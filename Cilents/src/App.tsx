@@ -17,6 +17,7 @@ import DarkModeProvider from "./context/DarkModeContext";
 
 import Booking from "./page/Booking";
 import Checkin from "./page/Checkin";
+import ProtectedRoute from "./ui/ProtectedRoute/ProtectedRoute";
 
 
 
@@ -37,7 +38,10 @@ export default function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>}>
             <Route index element={<Navigate replace to="dashboard"/>} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings/>} />
