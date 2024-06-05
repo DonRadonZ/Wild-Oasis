@@ -5,7 +5,7 @@ function SortBy({ options }){
     const [searchParams, setSearchParams] = useSearchParams();
     const sortBy = searchParams.get('sortBy') || "";
 
-    function handleChange(e) {
+    function handleChange(e: { target: { value: string; }; }) {
         searchParams.set('sortBy', e.target.value)
         setSearchParams(searchParams)
     }
