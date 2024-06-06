@@ -1,20 +1,31 @@
+import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom"
-import Select from "../Select/Select"
+import Select from "../Select/Select";
 
-function SortBy({ options }){
+type SortByProps = {
+    options: Array<{value: string; label: string;}>
+}
+
+
+function SortBy({ options }: SortByProps){
     const [searchParams, setSearchParams] = useSearchParams();
     const sortBy = searchParams.get('sortBy') || "";
 
-    function handleChange(e: { target: { value: string; }; }) {
+    function handleChange(e: ChangeEvent<HTMLSelectElement>) {
         searchParams.set('sortBy', e.target.value)
         setSearchParams(searchParams)
     }
 
     return (
-        <Select options={options} value={sortBy} type="white" onChange={handleChange}/>
+        <Select 
+        options={options} 
+        value={sortBy} 
+        type="white" 
+        onChange={handleChange}
+        />
         
         
-    )
+    );
 }
 
-export default SortBy
+export default SortBy;
