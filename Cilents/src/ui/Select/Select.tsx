@@ -1,6 +1,11 @@
+import { ChangeEvent } from "react";
 import styled from "styled-components";
 
-const StyledSelect = styled.select`
+type StyledSelectProps = {
+  type?: string;
+}
+
+const StyledSelect = styled.select<StyledSelectProps>`
   font-size: 1.4rem;
   padding: 0.8rem 1.2rem;
   border: 1px solid
@@ -14,9 +19,14 @@ const StyledSelect = styled.select`
   box-shadow: var(--shadow-sm);
 `;
 
+interface SelectProps {
+  options: Array<{value: string; label: string;}>
+  value: string;
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  type?: "white";
+}
 
-
-export default function Select({options, value, onChange, ...props}) {
+export default function Select({options, value, onChange, ...props}: SelectProps) {
   return (
     <StyledSelect value={value} onChange={onChange} {...props}>
         {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
