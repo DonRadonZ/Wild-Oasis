@@ -9,19 +9,20 @@ import { formatCurrency } from "../../utils/helper";
 
 
 
-export default function Stats({bookings, confirmedStays, numDays, cabinCount }) {
+
+export default function Stats({bookings, confirmedStays, numDays, cabinCount }: any) {
   // 1.
   const numBookings = bookings.length;
 
   // 2.
-  const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
+  const sales = bookings.reduce((acc: any, cur: any) => acc + cur.totalPrice, 0);
 
   // 3.
   const checkins = confirmedStays.length;
 
   // 4.
   const occupation = confirmedStays.reduce(
-    (acc, cur) => acc+cur.numNights, 0
+    (acc: any, cur: any) => acc+cur.numNights, 0
 ) / (numDays * cabinCount);
   // num checked in nights / all available nights (num days * num cabins)
 

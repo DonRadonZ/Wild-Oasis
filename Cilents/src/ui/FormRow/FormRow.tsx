@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 import styled from "styled-components";
 
 const StyledFormRow = styled.div`
@@ -39,8 +39,8 @@ const Error = styled.span`
 
 interface FormRowProps {
   label?: string;
-  error?: string;
-  children: ReactNode;
+    error?: string | undefined;
+    children: ReactElement;
 }
 
 export default function FormRow({label, error, children}: FormRowProps) {

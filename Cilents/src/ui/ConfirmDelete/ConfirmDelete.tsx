@@ -18,27 +18,30 @@ const StyledConfirmDelete = styled.div`
     justify-content: flex-end;
     gap: 1.2rem;
   }
-`;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
-  return (
-    <StyledConfirmDelete>
+`;
+interface ConfirmDeleteProp  {
+  resourceName: string;
+  onConfirm: () => void;
+  disabled: boolean;
+  onCloseModal?: () => void;
+}
+
+export default function ConfirmDelete({resourceName, onConfirm, disabled, onCloseModal }: ConfirmDeleteProp){
+  <StyledConfirmDelete>
       <Heading as="h3">Delete {resourceName}</Heading>
       <p>
-        Are you sure you want to delete this {resourceName} permanently? This
-        action cannot be undone.
+          Are you sure you want to delete this {resourceName} permanently? This action cannot be undone.
       </p>
 
       <div>
-        <Button variation="secondary" disabled={disabled} onClick={onCloseModal}>
-          Cancel
-        </Button>
-        <Button variation="danger" disabled={disabled} onClick={onConfirm}>
-          Delete
-        </Button>
+          <Button variation="secondary" disabled={disabled} onClick={onCloseModal}>
+              Cancel
+          </Button>
+          <Button variation="danger" disabled={disabled} onClick={onConfirm}>
+              Delete
+          </Button>
       </div>
-    </StyledConfirmDelete>
-  );
+  </StyledConfirmDelete>
 }
 
-export default ConfirmDelete;
