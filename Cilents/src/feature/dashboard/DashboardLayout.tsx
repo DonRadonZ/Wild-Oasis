@@ -8,6 +8,7 @@ import Stats from "./Stats";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
+import { useCabins } from "../cabins/useCabin";
 
 
 const StyledDashboardLayout = styled.div`
