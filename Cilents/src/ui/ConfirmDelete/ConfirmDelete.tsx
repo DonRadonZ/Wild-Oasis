@@ -28,6 +28,7 @@ interface ConfirmDeleteProp  {
 }
 
 export default function ConfirmDelete({resourceName, onConfirm, disabled, onCloseModal }: ConfirmDeleteProp){
+  return(
   <StyledConfirmDelete>
       <Heading as="h3">Delete {resourceName}</Heading>
       <p>
@@ -42,6 +43,6 @@ export default function ConfirmDelete({resourceName, onConfirm, disabled, onClos
               Delete
           </Button>
       </div>
-  </StyledConfirmDelete>
+  </StyledConfirmDelete>)
 }
 

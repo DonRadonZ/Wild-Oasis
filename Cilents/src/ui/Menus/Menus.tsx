@@ -29,7 +29,11 @@ const StyledToggle = styled.button`
   }
 `;
 
-const StyledList = styled.ul`
+type StyledPositionProps = {
+  position: { x: string| null; y: string | null; }
+}
+
+const StyledList = styled.ul<StyledPositionProps>`
   position: fixed;
 
   background-color: var(--color-grey-0);
@@ -69,7 +73,29 @@ type MenusProp = {
   children: ReactNode
 }
 
-const MenusContext = createContext()
+type MenusCtxProps = {
+  openId: string;
+  position: any;
+  close: () => void;
+  open: (val:string) => void;
+  setPosition: (val:any) => void;
+}
+
+const MenusContext = createContext<MenusCtxProps>({
+  openId: "",
+  position: null,
+  close: () => {
+    return;
+  },
+  open: (val:string) => {
+    val;
+    return;
+  },
+  setPosition: (val:any) => {
+    val;
+    return;
+  }
+})
 
 export default function Menus({children}: MenusProp) {
   const [openId, setOpenId] = useState("");
@@ -85,10 +111,10 @@ export default function Menus({children}: MenusProp) {
   )
 }
 
-function Toggle({id}){
+function Toggle({id}: {id: string}){
   const {openId, close, open, setPosition} = useContext(MenusContext);
 
-  function handleClick(e) {
+  function handleClick(e: any) {
     e.stopPropagation();
     
     const rect = e.target.closest("button").getBoundingCilentRect();
@@ -107,9 +133,9 @@ function Toggle({id}){
   )
 }
 
-function List({ id, children }){
+function List({ id, children }: {id: string, children: ReactNode}){
   const {openId, position, close} = useContext(MenusContext)
-  const ref = useOutsideClick(() => close(), false);
+  const ref: any = useOutsideClick(() => close(), false);
 
   if(openId !== id) return null;
 
@@ -119,7 +145,7 @@ function List({ id, children }){
   )
 }
 
-function Button({children, icon,onClick}){
+function Button({children, icon,onClick}:any){
   const { close } = useContext(MenusContext)
 
   function handleClick() {
@@ -128,7 +154,7 @@ function Button({children, icon,onClick}){
   }
   return (
   <li>
-    <StyledButton>{icon} <span>{children}</span></StyledButton>
+    <StyledButton onClick={handleClick}>{icon} <span>{children}</span></StyledButton>
   </li>
   )
 }

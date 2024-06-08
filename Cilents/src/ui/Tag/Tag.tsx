@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type TagProp = {
-  type?: string
+  type: string
 }
 
 const Tag = styled.span<TagProp>`
@@ -13,7 +13,7 @@ const Tag = styled.span<TagProp>`
   border-radius: 100px;
 
   /* Make these dynamic, based on the received prop */
-  color: var(--color-${(props) => props.type}-700);
+  color: var(--color-${(props: {type: string}) => props.type}-700);
   background-color: var(--color-${(props) => props.type}-100);
 `;
 
