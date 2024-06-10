@@ -14,6 +14,7 @@ import ConfirmDelete from "../../ui/ConfirmDelete/ConfirmDelete";
 import { useDeleteBooking } from "./useDeleteBooking";
 
 
+
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
@@ -41,6 +42,22 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
+type BookingRowPropType = {
+  booking:{
+    id: string;
+    created_at: string;
+    startDate: string;
+    endDate: string;
+    numNights: number;
+    numGuests: number;
+    totalPrice: number;
+    status: string;
+    guests: {fullName: string; email: string};
+    cabins: {name: string};
+  }
+  
+}
+
 function BookingRow({
   booking: {
     id: bookingId,
@@ -54,12 +71,12 @@ function BookingRow({
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
   },
-}) {
+}: BookingRowPropType) {
   const navigate = useNavigate();
   const { checkout, isCheckingOut } = useCheckout();
   const {deleteBooking, isDeleting } = useDeleteBooking();
 
-  const statusToTagName = {
+  const statusToTagName: any = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
@@ -114,7 +131,7 @@ function BookingRow({
         {status === "checked-in" && (
           <Menus.Button 
           icon={<HiArrowUpOnSquare/>}
-          onClick={() => {checkout(bookingId)}} 
+          onClick={() => {checkout(bookingId as any)}} 
           disabled={isCheckingOut}
           >
             Check out
