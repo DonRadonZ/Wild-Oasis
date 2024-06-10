@@ -10,7 +10,13 @@ import { useCreateCabin } from './useCreateCabin';
 import { useEditCabin } from './useEditCabin';
 
 
-function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
+function CreateCabinForm({ 
+  cabinToEdit = {}, 
+  onCloseModal 
+}:{
+  // cabinToEdit?: Cabin;
+  onCloseModal?: () => void
+}) {
   const {id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
