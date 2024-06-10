@@ -1,7 +1,15 @@
 import { createContext, ReactNode, useContext, useEffect } from "react"
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
-const DarkModeContext = createContext();
+type DarkModeCtxType = {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void
+}
+
+const DarkModeContext = createContext<DarkModeCtxType>({
+  isDarkMode: false,
+  toggleDarkMode: () => {}
+});
 
 export default function DarkModeProvider({children}:{children: ReactNode}) {
     const [isDarkMode, setIsDarkMode] = useLocalStorageState(window.matchMedia("(prefers-color-scheme: dark)").matches, "isDarkMode");
