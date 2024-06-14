@@ -12,7 +12,7 @@ import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
-import { HiArrowUpOnSquare, HiTrash } from "react-icons/hi2";
+import { HiArrowUpOnSquare } from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
 import Modal from "../../ui/Modal/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete/ConfirmDelete";
@@ -24,6 +24,10 @@ const HeadingGroup = styled.div`
   gap: 2.4rem;
   align-items: center;
 `;
+
+interface StatusToTagName {
+  [key: string]: string;
+}
 
 function BookingDetail() {
   const {booking, isLoading} = useBooking();
@@ -38,7 +42,7 @@ function BookingDetail() {
 
   const { status,id: bookingId } = booking;
 
-  const statusToTagName = {
+  const statusToTagName: StatusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",

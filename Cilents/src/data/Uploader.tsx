@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { isFuture, isPast, isToday } from "date-fns";
-import supabase from "../services/supabase";
+
 import Button from "../ui/Button/Button";
 import { subtractDates } from "../utils/helper";
 
 import { bookings } from "./data-bookings";
 import { cabins } from "./data-cabins";
 import { guests } from "./data-guests";
+import axios from "axios";
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -16,46 +17,41 @@ import { guests } from "./data-guests";
 // };
 
 async function deleteGuests() {
-  const { error } = await supabase.from("guests").delete().gt("id", 0);
-  if (error) console.log(error.message);
+  // const { error } = await 
+  // if (error) console.log(error.message);
 }
 
 async function deleteCabins() {
-  const { error } = await supabase.from("cabins").delete().gt("id", 0);
-  if (error) console.log(error.message);
+  // const { error } = await 
+  // if (error) console.log(error.message);
 }
 
 async function deleteBookings() {
-  const { error } = await supabase.from("bookings").delete().gt("id", 0);
-  if (error) console.log(error.message);
+  // const { error } = await 
+  // if (error) console.log(error.message);
 }
 
 async function createGuests() {
-  const { error } = await supabase.from("guests").insert(guests);
-  if (error) console.log(error.message);
+  // const { error } = await 
+  // if (error) console.log(error.message);
 }
 
 async function createCabins() {
-  const { error } = await supabase.from("cabins").insert(cabins);
-  if (error) console.log(error.message);
+  // const { error } = await axios.post(``)
+  // if (error) console.log(error.message);
 }
 
 async function createBookings() {
   // Bookings need a guestId and a cabinId. We can't tell Supabase IDs for each object, it will calculate them on its own. So it might be different for different people, especially after multiple uploads. Therefore, we need to first get all guestIds and cabinIds, and then replace the original IDs in the booking data with the actual ones from the DB
-  const { data: guestsIds } = await supabase
-    .from("guests")
-    .select("id")
-    .order("id");
-  const allGuestIds = guestsIds.map((cabin) => cabin.id);
-  const { data: cabinsIds } = await supabase
-    .from("cabins")
-    .select("id")
-    .order("id");
-  const allCabinIds = cabinsIds.map((cabin) => cabin.id);
+  const { data: guestsIds } = await axios.post(``)
+  const allGuestIds: any = guestsIds?.map((cabin: { id: any; }) => cabin.id);
+  const { data: cabinsIds } = await axios.post(``)
+
+  const allCabinIds: any = cabinsIds?.map((cabin: { id: any; }) => cabin.id);
 
   const finalBookings = bookings.map((booking) => {
     // Here relying on the order of cabins, as they don't have and ID yet
-    const cabin = cabins.at(booking.cabinId - 1);
+    const cabin: any = cabins.at(booking.cabinId - 1);
     const numNights = subtractDates(booking.endDate, booking.startDate);
     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
     const extrasPrice = booking.hasBreakfast
@@ -96,8 +92,8 @@ async function createBookings() {
 
   console.log(finalBookings);
 
-  const { error } = await supabase.from("bookings").insert(finalBookings);
-  if (error) console.log(error.message);
+  // const { error } = await 
+  // if (error) console.log(error.message);
 }
 
 function Uploader() {

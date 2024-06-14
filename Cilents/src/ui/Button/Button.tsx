@@ -1,8 +1,10 @@
 import styled, { css } from "styled-components";
 
 type TButtonProps = {
+  icon?: any;
   variation?: "primary" | "secondary" | "danger"; 
   size?: "small" | "medium" | "large";
+  onClick?: any;
 }
 
 const sizes = {

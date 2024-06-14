@@ -39,8 +39,8 @@ const Error = styled.span`
 
 interface FormRowProps {
   label?: string;
-    error?: string | undefined;
-    children: ReactElement;
+    error?: any;
+    children: any;
 }
 
 export default function FormRow({label, error, children}: FormRowProps) {

@@ -1,10 +1,10 @@
 
 type ResourceProps = {
-  resource: string;
+  resourceName: string;
 }
 
-function Empty({ resource }: ResourceProps) {
-    return <p>No {resource} could be found.</p>;
+function Empty({ resourceName }: ResourceProps) {
+    return <p>No {resourceName} could be found.</p>;
   }
   
   export default Empty;

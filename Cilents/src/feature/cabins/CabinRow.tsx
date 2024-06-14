@@ -40,9 +40,18 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+type cabinProps = {
+  cabin:{id: string,
+    name: string ,
+    maxCapacity: number, 
+    regularPrice: number, 
+    discount: number, 
+    image: string,
+    description: string}
+}
 
 
-export default function CabinRow({cabin}) {
+export default function CabinRow({cabin}: cabinProps) {
   
   const {isDeleting, deleteCabin} = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();

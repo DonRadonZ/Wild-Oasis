@@ -22,7 +22,7 @@ const Label = styled.span`
 `;
 
 interface DataItemProps {
-  icon: string;
+  icon: any;
   label: string;
   children: ReactNode;
 }
