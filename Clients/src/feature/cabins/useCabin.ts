@@ -9,7 +9,9 @@ type UseCabinsType = {
 }
 
 export function useCabins() {
-    const {isLoading, data: cabins, error}: UseCabinsType = useQuery({
+    const {isLoading, data: cabins, error}
+    : UseCabinsType 
+    = useQuery({
         queryKey: ['cabins'],
         queryFn: getCabins
       });
