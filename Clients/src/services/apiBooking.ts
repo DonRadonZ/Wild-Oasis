@@ -3,18 +3,25 @@ import { getToday } from "../utils/helper";
 import supabase from "./supabase";
 
 
-export async function getBookings({ filter, sortBy, page }) {
-  let query = supabase
-  
-  .from('bookings')
+export async function getBookings({ 
+  filter, 
+  sortBy, 
+  page 
+}:{
+  filter?: any;
+  sortBy?: any;
+  page?: number;
+}
+) {
+  let query: any = supabase
+  .from("bookings")
   .select(
     "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)",{ count: "exact" }
-  )
-    .eq("status", "unconfirmed")
-    .gte("totalPrice",5000);
+  );
 
   // FILTER
-  if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
+  if (filter)
+        query = query[filter.method || "eq"](filter.field, filter.value);
   
   // SORT
   if (sortBy)
