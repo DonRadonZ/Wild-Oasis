@@ -7,16 +7,18 @@ import { useCabins } from "./useCabin";
 import Table from "../../ui/Table/Table";
 
 import Menus from "../../ui/Menus/Menus";
+import Empty from "../../ui/Empty/Empty";
 
 
 
 
 export default function CabinTable() {
-  const {isLoading, cabins} = useCabins();
+  const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
 
+
   if(isLoading) return <Spinner/>;
-  // if(!cabins.length) return <Empty resourceName="bookings"/>
+  if(!cabins.length) return <Empty resourceName="cabins"/>
 
   // 1) FILTER
   const filterValue = searchParams.get("discount") || "all";
@@ -47,7 +49,7 @@ export default function CabinTable() {
       </Table.Header>
       <Table.Body  
       data={sortedCabins} 
-      render={(cabin)=> {<CabinRow cabin={cabin} key={cabin.id} />
+      render={(cabin) => {<CabinRow cabin={cabin} key={cabin.id} />
     }} /> 
      </Table>
     </Menus>
