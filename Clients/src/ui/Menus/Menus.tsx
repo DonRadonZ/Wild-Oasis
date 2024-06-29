@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
@@ -69,35 +69,21 @@ const StyledButton = styled.button`
   }
 `;
 
-type MenusProp = {
-  children: ReactNode
-}
 
-type MenusCtxProps = {
-  openId: string;
-  position: any;
-  close: () => void;
-  open: (val:string) => void;
-  setPosition: (val:any) => void;
-}
 
-const MenusContext = createContext<MenusCtxProps>({
-  openId: "",
-  position: null,
-  close: () => {
-    return;
-  },
-  open: (val:string) => {
-    val;
-    return;
-  },
-  setPosition: (val:any) => {
-    val;
-    return;
-  }
+// type MenusCtxProps = {
+//   openId: string;
+//   position: any;
+//   close: () => void;
+//   open: (val:string) => void;
+//   setPosition: (val:any) => void;
+// }
+
+const MenusContext = createContext<any>({
+  open, close
 })
 
-export default function Menus({children}: MenusProp) {
+export default function Menus({children}: any) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null)
 
@@ -111,7 +97,7 @@ export default function Menus({children}: MenusProp) {
   )
 }
 
-function Toggle({id}: {id: string}){
+function Toggle({id}: any){
   const {openId, close, open, setPosition} = useContext(MenusContext);
 
   function handleClick(e: any) {
@@ -121,7 +107,7 @@ function Toggle({id}: {id: string}){
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
-    })
+    });
 
     openId === "" || openId !== id ? open(id) : close();
   }
@@ -133,7 +119,7 @@ function Toggle({id}: {id: string}){
   )
 }
 
-function List({ id, children }: {id: string, children: ReactNode}){
+function List({ id, children }: any){
   const {openId, position, close} = useContext(MenusContext)
   const ref: any = useOutsideClick(() => close(), false);
 
