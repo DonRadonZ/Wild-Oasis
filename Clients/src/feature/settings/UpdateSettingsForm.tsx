@@ -1,11 +1,11 @@
-import { FocusEvent } from 'react';
+
 import Form from '../../ui/Form/Form';
 import FormRow from '../../ui/FormRow/FormRow';
 import Input from '../../ui/Input/Input';
 import Spinner from '../../ui/Spinner/Spinner';
 import { useSettings } from "./useSettings";
 import { useUpdateSetting } from './useUpdateSetting';
-import { updateSetting } from '../../services/apiSettings';
+
 
 function UpdateSettingsForm() {
   const {isLoading,
@@ -16,11 +16,11 @@ function UpdateSettingsForm() {
        breakfastPrice
     } = {},
   } = useSettings();
-  const {isUpdating, updateSettings } = useUpdateSetting();
+  const {isUpdating, updateSetting } = useUpdateSetting();
 
   if (isLoading) return <Spinner/>
 
-  function handleUpdate(e: FocusEvent<HTMLInputElement, Element>, field) {
+  function handleUpdate(e: any, field: any) {
     const {value} = e.target;
 
     if(!value) return;

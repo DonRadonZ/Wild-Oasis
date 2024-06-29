@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-const Textarea = styled.textarea`
+type CommonProps = {
+  
+  type?: string;
+  
+};
+
+const Textarea = styled.textarea<CommonProps>`
   padding: 0.8rem 1.2rem;
   border: 1px solid var(--color-grey-300);
   border-radius: 5px;

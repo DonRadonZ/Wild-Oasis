@@ -26,7 +26,7 @@ const Guest = styled.div`
 
 
 
-export default function TodayItem({ activity }) {
+export default function TodayItem({ activity }:{ activity: any }) {
   const {id, status, guests, numNights } = activity;
 
   return (

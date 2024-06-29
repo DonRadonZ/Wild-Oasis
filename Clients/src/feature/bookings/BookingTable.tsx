@@ -3,7 +3,7 @@ import Table from "../../ui/Table/Table";
 import Menus from "../../ui/Menus/Menus";
 import Empty from "../../ui/Empty/Empty";
 
-import { useBookings } from "./useBookings";
+import  useBookings  from "./useBookings";
 import Spinner from "../../ui/Spinner/Spinner";
 import Pagination from "../../ui/Pagination/Pagination";
 

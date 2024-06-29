@@ -22,7 +22,7 @@ const Avatar = styled.img`
 `;
 
 export default function UserAvatar() {
-  const {user} = useUser();
+  const {user}: any = useUser();
   const {fullName, avatar} = user.user_metadata;
 
   return (

@@ -15,7 +15,7 @@ const queryClient = useQueryClient();
         queryKey: ["cabins"],
       })
     },
-    onError: (err) => toast.error(err.message)
+    onError: (err: Error) => toast.error(err.message)
   });
 
   return { isDeleting, deleteCabin };

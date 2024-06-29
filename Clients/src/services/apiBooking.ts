@@ -7,11 +7,7 @@ export async function getBookings({
   filter, 
   sortBy, 
   page 
-}:{
-  filter?: any;
-  sortBy?: any;
-  page?: number;
-}
+}:any
 ) {
   let query: any = supabase
   .from("bookings")
@@ -43,7 +39,7 @@ export async function getBookings({
   return { data, count };
 }
 
-export async function getBooking(id: string) {
+export async function getBooking(id: any) {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")

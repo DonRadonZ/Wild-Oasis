@@ -8,16 +8,18 @@ import FormRow from "../../ui/FormRow/FormRow";
 import { useForm } from "react-hook-form";
 import { useCreateCabin } from './useCreateCabin';
 import { useEditCabin } from './useEditCabin';
+import { Cabin } from "../../types";
+
 
 
 function CreateCabinForm({ 
-  cabinToEdit = {}, 
+  cabinToEdit, 
   onCloseModal 
 }:{
-  // cabinToEdit?: Cabin;
+  cabinToEdit?: Cabin;
   onCloseModal?: () => void
 }) {
-  const {id: editId, ...editValues } = cabinToEdit;
+  const {id: editId, ...editValues } = (cabinToEdit as Cabin) || {};
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -31,16 +33,15 @@ function CreateCabinForm({
 
   const isWorking = isCreating || isEditing;
 
-  function onSubmit(data){
+  function onSubmit(data: any){
     const image = typeof data.image === 'string' ? data.image : data.image[0]
 
     if(isEditSession) 
       editCabin(
     { newCabinData: {...data, image}, id: editId },{
-      onSuccess: (data) => {
+      onSuccess: () => {
           reset();
-          onCloseModal?.();
-      
+          onCloseModal?.(); 
     }
   }  
 )
@@ -48,15 +49,15 @@ function CreateCabinForm({
       createCabin(
         { ...data, image: image}, 
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             reset();
             onCloseModal?.();
       },
     });
   }
 
-  function onError(errors){
-    // console.log(errors);
+  function onError(){
+    console.log("Error Logging...");
   }
 
   return (

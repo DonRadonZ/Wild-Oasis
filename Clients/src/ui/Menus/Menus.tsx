@@ -103,7 +103,7 @@ function Toggle({id}: any){
   function handleClick(e: any) {
     e.stopPropagation();
     
-    const rect = e.target.closest("button").getBoundingCilentRect();
+    const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,

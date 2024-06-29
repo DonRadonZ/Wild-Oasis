@@ -3,47 +3,52 @@ import { getBookings } from "../../services/apiBooking";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../utils/constant";
 
-export function useBookings() {
-  const queryCilent = useQueryClient();
-  const [searchParams] = useSearchParams();
+export default function useBookings() {
+    const queryClient = useQueryClient();
+    const [searchParams] = useSearchParams();
 
-  const filterValue = searchParams.get("status");
-  const filter = !filterValue || filterValue === 'all' ? null
-     : { field: 'status', method: filterValue };
-    // : { field: "totalPrice", value: 5000 , method: "gte" };
+    // FILTER
+    const filterValue = searchParams.get("status");
+    const filter =
+        !filterValue || filterValue === "all"
+            ? null
+            : { field: "status", value: filterValue };
+    // { field: "totalPrice", value: 5000, method: "gte" };
 
-  // SORT
-  const sortByRaw = searchParams.get('sortBy') || "startDate-desc";
-  const [field, direction] = sortByRaw.split('-');
-  const sortBy = { field, direction }; 
+    // SORT
+    const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
+    const [field, direction] = sortByRaw.split("-");
+    const sortBy = { field, direction };
 
-  // PAGINATION
-  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+    // PAGINATION
+    const page = !searchParams.get("page")
+        ? 1
+        : Number(searchParams.get("page"));
 
+    // QUERY
     const {
-      isLoading, 
-      data: {data: bookings, count} = {}, 
-      error
+        isLoading,
+        data: { data: bookings, count } = {},
+        error,
     } = useQuery({
-        queryKey: ['bookings', filter, sortBy, page],
-        queryFn: ()  => getBookings({ filter, sortBy, page }),
+        queryKey: ["bookings", filter, sortBy, page],
+        queryFn: () => getBookings({ filter, sortBy, page }),
     });
-
 
     // PRE-FETCHING
     const pageCount = Math.ceil(count / PAGE_SIZE);
 
-    if(page < pageCount)
-    queryCilent.prefetchQuery({
-      queryKey: ['bookings', filter, sortBy, page+1],
-        queryFn: ()  => getBookings({ filter, sortBy, page: page+ 1 }),
-    })
+    if (page < pageCount)
+        queryClient.prefetchQuery({
+            queryKey: ["bookings", filter, sortBy, page + 1],
+            queryFn: () => getBookings({ filter, sortBy, page: page + 1 }),
+        });
 
-    if(page > 1)
-      queryCilent.prefetchQuery({
-        queryKey: ['bookings', filter, sortBy, page+1],
-          queryFn: ()  => getBookings({ filter, sortBy, page: page - 1 }),
-      })
+    if (page > 1)
+        queryClient.prefetchQuery({
+            queryKey: ["bookings", filter, sortBy, page - 1],
+            queryFn: () => getBookings({ filter, sortBy, page: page - 1 }),
+        });
 
-      return {isLoading, error, bookings, count };
+    return { isLoading, error, bookings, count };
 }

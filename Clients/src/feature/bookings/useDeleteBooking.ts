@@ -15,7 +15,7 @@ const queryClient = useQueryClient();
         queryKey: ["bookings"],
       })
     },
-    onError: (err) => toast.error(err.message)
+    onError: () => toast.error("An Error Occured Deleting the booking")
   });
 
   return { isDeleting, deleteBooking };

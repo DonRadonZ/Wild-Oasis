@@ -12,7 +12,7 @@ function UpdatePasswordForm() {
 
   const { updateUser, isUpdating } = useUpdateUser();
 
-  function onSubmit({ password }) {
+  function onSubmit({ password }: any) {
     updateUser({ password }, { onSuccess: reset });
   }
 

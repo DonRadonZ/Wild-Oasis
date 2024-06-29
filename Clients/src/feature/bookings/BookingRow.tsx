@@ -42,36 +42,36 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
-type BookingRowPropType = {
-  booking:{
-    id: string;
-    created_at: string;
-    startDate: string;
-    endDate: string;
-    numNights: number;
-    numGuests: number;
-    totalPrice: number;
-    status: string;
-    guests: {fullName: string; email: string};
-    cabins: {name: string};
-  }
+// type BookingRowPropType = {
+//   booking:{
+//     id: number;
+//     created_at: string;
+//     startDate: string;
+//     endDate: string;
+//     numNights: number;
+//     // numGuests: number;
+//     totalPrice: number;
+//     status: string;
+//     guests: { fullName: string; email: string };
+//     cabins: { name: string };
+//   }
   
-}
+// }
 
 function BookingRow({
   booking: {
     id: bookingId,
-    created_at,
+    // created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
+    // numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
   },
-}: BookingRowPropType) {
+}: any) {
   const navigate = useNavigate();
   const { checkout, isCheckingOut } = useCheckout();
   const {deleteBooking, isDeleting } = useDeleteBooking();
@@ -137,7 +137,7 @@ function BookingRow({
             Check out
           </Menus.Button>
         )}
-        <Modal.Open opens='delete'>
+        <Modal.Open opens={'delete'}>
           <Menus.Button icon={<HiTrash/>}>Delete booking</Menus.Button>
         </Modal.Open>
           </Menus.List>

@@ -7,18 +7,14 @@ import { useSignUp } from "./useSignUp";
 
 // Email regex: /\S+@\S+\.\S+/
 
-interface onSubmitProp {
-  fullName: string;
-   email: string; 
-   password: string;
-}
+
 
 function SignupForm() {
   const { signup, isLoading } = useSignUp();
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  function onSubmit({fullName, email, password}: onSubmitProp) {
+  function onSubmit({fullName, email, password}:any) {
     signup({ fullName, email, password }, {
       onSettled: () => reset()
     })
