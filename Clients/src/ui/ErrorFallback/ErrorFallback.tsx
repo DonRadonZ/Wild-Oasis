@@ -33,7 +33,7 @@ const Box = styled.div`
   }
 `;
 
-function ErrorFallback({error, resetErrorBoundary}) {
+function ErrorFallback({error, resetErrorBoundary}: any) {
   return (
     <>
     <GlobalStyles/>

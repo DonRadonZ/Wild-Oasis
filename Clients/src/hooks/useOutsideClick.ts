@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 
-function useOutsideClick(handler, listenerCapturing = true) {
-    const ref = useRef();
+function useOutsideClick(handler: any, listenerCapturing = true) {
+    const ref: any = useRef();
 
 
   useEffect(function() {
-    function handleClick(e) {
+    function handleClick(e: Event) {
       if(ref.current && !ref.current.contains(e.target)){ handler();
       }
     }
