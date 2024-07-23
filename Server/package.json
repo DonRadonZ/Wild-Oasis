@@ -7,9 +7,14 @@
   "author": "Supachai Sinkaseam",
   "license": "ISC",
   "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^20.12.11",
     "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.0"
   }
 }
